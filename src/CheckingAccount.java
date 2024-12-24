@@ -1,4 +1,9 @@
 public class CheckingAccount {
+    enum type {
+        monthly,
+        yearly
+    }
+
     private double bankCharges;
 
     CheckingAccount () {}
@@ -16,5 +21,5 @@ public class CheckingAccount {
 
 
 
-    
+
 }
