@@ -8,6 +8,7 @@ public class Client {
     private String email;
     private String address;
     private String phone;
+    // TODO create an array list of associated acounts
 
     Client () {}
 
