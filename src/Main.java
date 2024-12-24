@@ -18,6 +18,7 @@ public class Main {
                     break;
                 case 'c':
                     // enter client
+                    clientFunc();
                     mainManu = showManu();
                     break;
                 case 'a':
@@ -50,5 +51,27 @@ public class Main {
             charChoice = src.nextLine();
         }
         return charChoice.charAt(0);
+    }
+
+    static void clientFunc () {
+        Client client = new Client();
+        boolean subMenuRunning = true;
+        int menu = client.subMenu();
+
+        switch ( menu ) {
+            case 0:
+                subMenuRunning = false;
+                break;
+            case 1:
+                // list all clients
+                break;
+            case 2:
+                // show single client
+                break;
+            case 3:
+                // create a client
+                break;
+        }
+
     }
 }
