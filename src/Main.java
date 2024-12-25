@@ -58,20 +58,25 @@ public class Main {
         boolean subMenuRunning = true;
         int menu = client.subMenu();
 
-        switch ( menu ) {
-            case 0:
-                subMenuRunning = false;
-                break;
-            case 1:
-                // list all clients
-                break;
-            case 2:
-                // show single client
-                break;
-            case 3:
-                // create a client
-                break;
+        while ( subMenuRunning ) {
+            switch ( menu ) {
+                case 0:
+                    subMenuRunning = false;
+                    break;
+                case 1:
+                    // list all clients
+                    break;
+                case 2:
+                    // show single client
+                    break;
+                case 3:
+                    // create a client
+                case 4:
+                    menu = client.subMenu();
+                    break;
+            }
         }
+
 
     }
 }
