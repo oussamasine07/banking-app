@@ -11,4 +11,14 @@ public abstract class  Account {
     }
     // TODO Add overloaded constructor if needed
 
+    public long getAccountNumber () {
+        return this.accountNumber;
+    }
+    public double getBalance () {
+        return this.balance;
+    }
+    public Client getOwnedBy () {
+        return this.ownedBy;
+    }
+
 }

@@ -69,6 +69,8 @@ public class Main {
                     break;
                 case 2:
                     // show single client
+                    client.show();
+                    menu = client.subMenu();
                     break;
                 case 3:
                     // create a client

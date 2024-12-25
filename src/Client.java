@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -13,7 +14,7 @@ public class Client {
     private String email;
     private String address;
     private String phone;
-    // TODO create an array list of associated acounts
+    private ArrayList<Account> accounts = new ArrayList<Account>();
 
     Scanner scr = new Scanner(System.in);
 
@@ -184,7 +185,47 @@ public class Client {
         }
     }
 
-    
+    public void show () {
+
+        System.out.println("Please enter Client id");
+        int clientId = scr.nextInt();
+
+        Client client = findById( clientId );
+
+        System.out.println("******************* ALL DETAILS ******************");
+
+        if ( client != null ) {
+            System.out.println("Full Name: " + client.firstName + " " + client.lastName);
+            System.out.println("Email : " + client.email);
+            System.out.println("Phone : " + client.phone);
+            System.out.println("Address : " + client.address);
+            if ( client.accounts.size() > 0) {
+                for ( Account account : client.accounts ) {
+                    System.out.println("Account Number: " + account.getAccountNumber());
+                    System.out.println("Balance : " + account.getBalance());
+                }
+            } else {
+                System.out.println("NO Accounts Yet");
+            }
+        } else {
+            System.out.println("Unfound Client");
+        }
+
+
+    }
+
+    public Client findById ( int id ) {
+        Client foundClient = null;
+
+        for ( Client client : Main.clients ) {
+            if ( client.id == id) {
+                foundClient = client;
+                break;
+            }
+        }
+
+        return foundClient;
+    }
 
     int subMenu () {
         try {
