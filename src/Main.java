@@ -72,8 +72,9 @@ public class Main {
                     break;
                 case 3:
                     // create a client
-                    client.create( editing );
+                    client.create();
                     menu = client.subMenu();
+                    break;
                 case 4:
                     menu = client.subMenu();
                     break;

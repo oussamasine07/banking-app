@@ -31,6 +31,7 @@ public class Client {
         count++;
     }
 
+    static int option;
 
     public String getFirstName () {
         return this.firstName;
@@ -96,7 +97,7 @@ public class Client {
         return match.find();
     }
 
-    public void create ( boolean editing ) {
+    public void create () {
         // using regex
             // validate client name it name should be all letters
         System.out.println("please enter first name");
@@ -134,41 +135,39 @@ public class Client {
             address = scr.nextLine();
         }
 
-        new Client( firstName, lastName, email, address, phone );
+        System.out.println("Do you confirm adding this Client (YES/NO)");
+        System.out.println("y => to Cancel client");
+        System.out.println("n => to Create Client");
 
-//        System.out.println("Do you confirm adding this Client (YES/NO)");
-//        System.out.println("y => to Cancel client");
-//        System.out.println("n => to Create Client");
-//
-//        String confirm = scr.nextLine();
-//
-//        if ( confirm.length() > 1) {
-//            System.out.println("you entered more than one character");
-//            confirm = scr.nextLine();
-//        }
+        String confirm = scr.nextLine();
 
-//        while ( confirm.charAt(0) != 'y' && confirm.charAt(0) != 'n' ) {
-//            System.out.println("please enter only (y or n)");
-//            confirm = scr.nextLine();
-//        }
-        //new Client( firstName, lastName, email, address, phone );
+        if ( confirm.length() > 1) {
+            System.out.println("you entered more than one character");
+            confirm = scr.nextLine();
+        }
 
-//        if ( confirm.charAt(0) == 'y') {
-//            // create new client
-//            new Client( firstName, lastName, email, address, phone );
-//            // give the user the option to create a new account
-//            System.out.println("Do you want to create an account for this client ? enter (y or n)");
-//            confirm = scr.nextLine();
-//            if ( confirm.charAt(0) == 'y' ) {
-//                // create new account here
-//                System.out.println(" account created ");
-//                // ask wich type of account
-//            } else {
-//                System.out.println("new Client created");
-//            }
-//        } else {
-//            System.out.println("creating new client is canceled");
-//        }
+        while ( confirm.charAt(0) != 'y' && confirm.charAt(0) != 'n' ) {
+            System.out.println("please enter only (y or n)");
+            confirm = scr.nextLine();
+        }
+
+
+        if ( confirm.charAt(0) == 'y') {
+            // create new client
+            new Client( firstName, lastName, email, address, phone );
+            // give the user the option to create a new account
+            System.out.println("Do you want to create an account for this client ? enter (y or n)");
+            confirm = scr.nextLine();
+            if ( confirm.charAt(0) == 'y' ) {
+                // create new account here
+                System.out.println(" account created ");
+                // ask wich type of account
+            } else {
+                System.out.println("new Client created");
+            }
+        } else {
+            System.out.println("creating new client is canceled");
+        }
     }
 
     public void list () {
@@ -177,14 +176,15 @@ public class Client {
             System.out.println("No Clients YET");
         } else {
             for ( Client client : Main.clients ) {
-                System.out.println("Full Name: " + this.firstName + " " + this.lastName);
-                System.out.println("Email : " + this.email);
-                System.out.println("Phone : " + this.phone);
-                System.out.println("Address : " + this.address);
+                System.out.println("Full Name: " + client.firstName + " " + client.lastName);
+                System.out.println("Email : " + client.email);
+                System.out.println("Phone : " + client.phone);
+                System.out.println("Address : " + client.address);
             }
         }
     }
 
+    
 
     int subMenu () {
         try {
@@ -193,7 +193,7 @@ public class Client {
             System.out.println("1 => list all Clients");
             System.out.println("2 => list a single Client");
             System.out.println("3 => create a Client");
-            int option = scr.nextInt();
+            option = scr.nextInt();
             scr.nextLine();
             while ( option != 0 && option != 1 && option != 2 && option != 3 && option != 4 ) {
                 System.out.println("invalid option please choose one of (0,1,2,3,4)");
