@@ -64,7 +64,8 @@ public class Main {
                     subMenuRunning = false;
                     break;
                 case 1:
-                    // list all clients
+                    client.list();
+                    menu = client.subMenu();
                     break;
                 case 2:
                     // show single client
