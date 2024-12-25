@@ -55,7 +55,7 @@ public class Main {
 
     static void clientFunc () {
         Client client = new Client();
-        boolean subMenuRunning = true;
+        boolean subMenuRunning = true, editing = true;
         int menu = client.subMenu();
 
         while ( subMenuRunning ) {
@@ -71,6 +71,8 @@ public class Main {
                     break;
                 case 3:
                     // create a client
+                    client.create( editing );
+                    menu = client.subMenu();
                 case 4:
                     menu = client.subMenu();
                     break;
