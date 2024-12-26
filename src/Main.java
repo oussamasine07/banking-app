@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     static ArrayList<Client> clients = new ArrayList<Client>();
+    static ArrayList<Account> accounts = new ArrayList<Account>();
     static Scanner src = new Scanner(System.in);
 
     static boolean appRunning = true;
@@ -11,6 +13,7 @@ public class Main {
     static boolean editing;
 
     public static void main(String[] args) {
+
         while ( appRunning ) {
             switch ( mainManu ) {
                 case 'h':
@@ -22,6 +25,7 @@ public class Main {
                     mainManu = showManu();
                     break;
                 case 'a':
+                    checkingAccountFunc();
                     mainManu = showManu();
                     break;
                 case 'q':
@@ -82,7 +86,39 @@ public class Main {
                     break;
             }
         }
+    }
 
+    static void checkingAccountFunc () {
+        CheckingAccount checkingAccount = new CheckingAccount();
+        boolean subMenuRunning = true, editing = true;
+        int menu = checkingAccount.subMenu();
 
+        while ( subMenuRunning ) {
+            switch ( menu ) {
+                case 0:
+                    subMenuRunning = false;
+                    break;
+                case 1:
+                    //checkingAccount.list();
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 2:
+                    // show single client
+                    //checkingAccount.show();
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 3:
+                    // create a client
+                    System.out.println("please enter Client ID ");
+                    int clientId = src.nextInt();
+                    src.nextLine();
+                    checkingAccount.create( clientId );
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 4:
+                    menu = checkingAccount.subMenu();
+                    break;
+            }
+        }
     }
 }

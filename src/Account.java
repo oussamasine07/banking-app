@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class  Account {
     private int count = 1;
     private int id;
@@ -5,10 +7,16 @@ public abstract class  Account {
     private double balance;
     private Client ownedBy;
 
-    Account () {
+    Account ( double balance ) {
         this.id = count;
+        this.accountNumber = this.generateAccountNumber();
+        this.balance = balance;
+        this.ownedBy = null;
+        Main.accounts.add(this);
         count++;
     }
+
+    Account () {}
     // TODO Add overloaded constructor if needed
 
     public long getAccountNumber () {
@@ -20,5 +28,24 @@ public abstract class  Account {
     public Client getOwnedBy () {
         return this.ownedBy;
     }
+
+    public void setOwnedBy ( Client account ) {
+        this.ownedBy = account;
+    }
+
+    public long generateAccountNumber () {
+        Random random = new Random();
+        long foundAccountNumber = Math.abs(random.nextLong());
+
+        // check if account number already exists
+        for ( Account account : Main.accounts ) {
+            if ( account.accountNumber == foundAccountNumber ) {
+                this.generateAccountNumber();
+            }
+        }
+        return foundAccountNumber;
+    }
+
+    public abstract void create( int clientId );
 
 }

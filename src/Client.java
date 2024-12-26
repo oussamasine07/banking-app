@@ -65,6 +65,9 @@ public class Client {
     public void setPhone ( String phone ) {
         this.phone = phone;
     }
+    public void setAccounts ( Account account ) {
+        this.accounts.add( account );
+    }
 
     public boolean isValidletters ( String text ) {
         String pattern = "^[a-z\\s]+$";
