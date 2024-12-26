@@ -92,6 +92,7 @@ public class Main {
 
     static void checkingAccountFunc () {
         CheckingAccount checkingAccount = new CheckingAccount();
+        SavingsAccount savingsAccount = new SavingsAccount();
         boolean subMenuRunning = true, editing = true;
         int menu = checkingAccount.subMenu();
 
@@ -109,15 +110,29 @@ public class Main {
                     System.out.println("Please enter Account ID ");
                     int accountId = src.nextInt();
                     src.nextLine();
+                    // TODO show both savings and checking account
                     checkingAccount.show( accountId );
                     menu = checkingAccount.subMenu();
                     break;
                 case 3:
                     // create a client
-                    System.out.println("please enter Client ID ");
-                    int clientId = src.nextInt();
+                    System.out.println("What type of Account?");
+                    System.out.println("1 => to open a Checking Account");
+                    System.out.println("2 => to open a Savings Account");
+                    int accountType = src.nextInt();
                     src.nextLine();
-                    checkingAccount.create( clientId );
+                    if ( accountType == 1 ) {
+                        System.out.println("please enter Client ID ");
+                        int clientId = src.nextInt();
+                        src.nextLine();
+                        checkingAccount.create( clientId );
+                    }
+                    if ( accountType == 2 ) {
+                        System.out.println("please enter Client ID ");
+                        int clientId = src.nextInt();
+                        src.nextLine();
+                        savingsAccount.create( clientId );
+                    }
                     menu = checkingAccount.subMenu();
                     break;
                 case 4:
