@@ -2,10 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CheckingAccount extends Account {
-    enum type {
-        monthly,
-        yearly
-    }
+
 
     private double bankCharges;
     public static String accountType = "checking account";
@@ -13,8 +10,10 @@ public class CheckingAccount extends Account {
     public static int option;
     public static Scanner scr = new Scanner(System.in);
 
-    CheckingAccount ( double balance, double bankCharges ) {
-        super( balance );
+    static Client client = new Client();
+
+    CheckingAccount ( int ownedBy, double balance, double bankCharges ) {
+        super( balance, ownedBy );
         this.bankCharges = bankCharges;
     }
 
@@ -46,11 +45,11 @@ public class CheckingAccount extends Account {
                      double bankCharges = scr.nextDouble();
                      scr.nextLine();
 
-                     CheckingAccount newCheckingAccount = new CheckingAccount( dipositAmount, bankCharges );
+                     CheckingAccount newCheckingAccount = new CheckingAccount( foundClient.getId(), dipositAmount, bankCharges );
                      // associate account client
                      foundClient.setAccounts( newCheckingAccount );
                      // associate client to account
-                     newCheckingAccount.setOwnedBy(foundClient);
+                     newCheckingAccount.setOwnedBy(foundClient.getId());
                      break;
                  }
                  catch ( InputMismatchException e ) {
@@ -65,12 +64,14 @@ public class CheckingAccount extends Account {
 
     public void show ( int accountId ) {
         CheckingAccount foundAccount = this.findAccountById( accountId );
+
          if ( foundAccount != null ) {
+             Client foundClient = client.findById( foundAccount.getOwnedBy() );
              System.out.println("Account Number : " + foundAccount.getAccountNumber());
+             System.out.println("Account Holder : " + foundClient.getFirstName() + " " + foundClient.getLastName());
              System.out.println("Account Type : " + CheckingAccount.accountType);
              System.out.println("Balance : " + foundAccount.getBalance());
              System.out.println("Bank Charges : " + foundAccount.getBankCharges());
-
          } else {
              System.out.println("UNFOUND Account");
          }

@@ -5,13 +5,13 @@ public abstract class  Account {
     private int id;
     private long accountNumber; // this number should be generated automatically and it should be unique
     private double balance;
-    private Client ownedBy;
+    private int ownedBy;
 
-    Account ( double balance ) {
+    Account ( double balance, int ownedBy ) {
         this.id = count;
         this.accountNumber = this.generateAccountNumber();
         this.balance = balance;
-        this.ownedBy = null;
+        this.ownedBy = ownedBy;
         Main.accounts.add(this);
         count++;
     }
@@ -28,11 +28,11 @@ public abstract class  Account {
     public double getBalance () {
         return this.balance;
     }
-    public Client getOwnedBy () {
+    public int getOwnedBy () {
         return this.ownedBy;
     }
 
-    public void setOwnedBy ( Client account ) {
+    public void setOwnedBy ( int  account ) {
         this.ownedBy = account;
     }
 
