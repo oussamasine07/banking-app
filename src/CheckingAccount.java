@@ -15,6 +15,7 @@ public class CheckingAccount extends Account {
     CheckingAccount ( int ownedBy, double balance, double bankCharges ) {
         super( balance, ownedBy );
         this.bankCharges = bankCharges;
+        Main.checkingAccounts.add(this);
     }
 
     CheckingAccount () {}
@@ -23,12 +24,9 @@ public class CheckingAccount extends Account {
         return this.bankCharges;
     }
 
-
     public void setBankCharges ( double bankCharges ) {
         this.bankCharges = bankCharges;
     }
-
-
 
     public void create ( int clientId ) {
          Client client = new Client();

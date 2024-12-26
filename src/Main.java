@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     static ArrayList<Client> clients = new ArrayList<Client>();
+    static ArrayList<Account> accounts = new ArrayList<Account>();
     static ArrayList<CheckingAccount> checkingAccounts = new ArrayList<CheckingAccount>();
     static ArrayList<SavingsAccount> savingsAccounts = new ArrayList<SavingsAccount>();
     static Scanner src = new Scanner(System.in);
@@ -105,7 +106,10 @@ public class Main {
                     break;
                 case 2:
                     // show single client
-                    //checkingAccount.show();
+                    System.out.println("Please enter Account ID ");
+                    int accountId = src.nextInt();
+                    src.nextLine();
+                    checkingAccount.show( accountId );
                     menu = checkingAccount.subMenu();
                     break;
                 case 3:

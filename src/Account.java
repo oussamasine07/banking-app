@@ -12,7 +12,6 @@ public abstract class  Account {
         this.accountNumber = this.generateAccountNumber();
         this.balance = balance;
         this.ownedBy = ownedBy;
-        Main.accounts.add(this);
         count++;
     }
 
