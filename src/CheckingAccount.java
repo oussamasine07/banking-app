@@ -8,7 +8,7 @@ public class CheckingAccount extends Account {
     }
 
     private double bankCharges;
-    private static String accountType = "checking account";
+    public static String accountType = "checking account";
 
     public static int option;
     public static Scanner scr = new Scanner(System.in);
@@ -24,9 +24,11 @@ public class CheckingAccount extends Account {
         return this.bankCharges;
     }
 
+
     public void setBankCharges ( double bankCharges ) {
         this.bankCharges = bankCharges;
     }
+
 
 
     public void create ( int clientId ) {
@@ -59,6 +61,28 @@ public class CheckingAccount extends Account {
          } else {
              System.out.println("UNFOUND Client");
          }
+    }
+
+    public void show ( int accountId ) {
+        CheckingAccount foundAccount = this.findAccountById( accountId );
+         if ( foundAccount != null ) {
+             System.out.println("Account Number : " + foundAccount.getAccountNumber());
+             System.out.println("Account Type : " + CheckingAccount.accountType);
+             System.out.println("Balance : " + foundAccount.getBalance());
+             System.out.println("Bank Charges : " + foundAccount.getBankCharges());
+
+         } else {
+             System.out.println("UNFOUND Account");
+         }
+    }
+
+    public CheckingAccount findAccountById ( int accountId ) {
+        for ( CheckingAccount account : Main.checkingAccounts ) {
+            if ( account.getId() == accountId ) {
+                return account;
+            }
+        }
+        return null;
     }
 
     int subMenu () {

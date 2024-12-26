@@ -19,6 +19,9 @@ public abstract class  Account {
     Account () {}
     // TODO Add overloaded constructor if needed
 
+    public int getId () {
+        return this.id;
+    }
     public long getAccountNumber () {
         return this.accountNumber;
     }
@@ -47,5 +50,7 @@ public abstract class  Account {
     }
 
     public abstract void create( int clientId );
+
+    public abstract void show ( int clientId );
 
 }
