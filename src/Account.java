@@ -35,6 +35,15 @@ public abstract class  Account {
         this.ownedBy = account;
     }
 
+    public void encreaseBalance ( double amount ) {
+        this.balance += amount;
+    }
+
+    public void decreaseBalance ( double amount ) {
+        this.balance -= amount;
+    }
+
+
     public long generateAccountNumber () {
         Random random = new Random();
         long foundAccountNumber = Math.abs(random.nextLong());
