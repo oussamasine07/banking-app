@@ -65,24 +65,35 @@ public class Operation {
                 scr.nextLine();
             }
 
+            System.out.println("Enter account ID: ");
+            accountId = scr.nextInt();
+            scr.nextLine();
+
             switch ( accountType ) {
                 case 1:
                     // get account
-                    System.out.println("Enter account ID: ");
-                    accountId = scr.nextInt();
-                    scr.nextLine();
-                    CheckingAccount account = this.findCheckingAccountById( accountId );
-                    if ( account != null ) {
+                    CheckingAccount checkingAcc = this.findCheckingAccountById( accountId );
+                    if ( checkingAcc != null ) {
                         System.out.println("Enter the amount you want to deposit ");
                         amount = scr.nextDouble();
                         scr.nextLine();
-                        new Operation( "diposit", amount, account);
-                        account.encreaseBalance( amount );
+                        new Operation( "diposit", amount, checkingAcc);
+                        checkingAcc.encreaseBalance( amount );
                     } else {
                         System.out.println("UNFOUND Account.");
                     }
                     break;
                 case 2:
+                    SavingsAccount savingsAcc = this.findSavingsAccountById( accountId );
+                    if ( savingsAcc != null ) {
+                        System.out.println("Enter the amount you want to deposit ");
+                        amount = scr.nextDouble();
+                        scr.nextLine();
+                        new Operation( "diposit", amount, savingsAcc);
+                        savingsAcc.encreaseBalance( amount );
+                    } else {
+                        System.out.println("UNFOUND Account.");
+                    }
                     break;
             }
         }
