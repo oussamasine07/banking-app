@@ -147,22 +147,30 @@ public class Main {
                     break;
                 case 3:
                     // create a client
-                    System.out.println("What type of Account?");
-                    System.out.println("1 => to open a Checking Account");
-                    System.out.println("2 => to open a Savings Account");
-                    int accountType = src.nextInt();
-                    src.nextLine();
-                    if ( accountType == 1 ) {
-                        System.out.println("please enter Client ID ");
-                        int clientId = src.nextInt();
-                        src.nextLine();
-                        checkingAccount.create( clientId );
-                    }
-                    if ( accountType == 2 ) {
-                        System.out.println("please enter Client ID ");
-                        int clientId = src.nextInt();
-                        src.nextLine();
-                        savingsAccount.create( clientId );
+                    while ( true ) {
+                        try {
+                            System.out.println("What type of Account?");
+                            System.out.println("1 => to open a Checking Account");
+                            System.out.println("2 => to open a Savings Account");
+                            int accountType = src.nextInt();
+                            src.nextLine();
+                            System.out.println("please enter Client ID ");
+                            int clientId = src.nextInt();
+                            src.nextLine();
+                            switch ( accountType ) {
+                                case 1:
+                                    checkingAccount.create( clientId );
+                                    break;
+                                case 2:
+                                    savingsAccount.create( clientId );
+                                    break;
+                            }
+                            break;
+                        }
+                        catch ( InputMismatchException e ) {
+                            System.out.println("please enter valid numbers");
+                            src.nextLine();
+                        }
                     }
                     menu = checkingAccount.subMenu();
                     break;
