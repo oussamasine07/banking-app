@@ -9,6 +9,7 @@ public class Main {
     static ArrayList<Account> accounts = new ArrayList<Account>();
     static ArrayList<CheckingAccount> checkingAccounts = new ArrayList<CheckingAccount>();
     static ArrayList<SavingsAccount> savingsAccounts = new ArrayList<SavingsAccount>();
+    static ArrayList<Operation> operations = new ArrayList<>();
     static Scanner src = new Scanner(System.in);
 
     static boolean appRunning = true;
@@ -92,6 +93,96 @@ public class Main {
     }
 
     static void checkingAccountFunc () {
+        CheckingAccount checkingAccount = new CheckingAccount();
+        SavingsAccount savingsAccount = new SavingsAccount();
+        boolean subMenuRunning = true, editing = true;
+        int menu = checkingAccount.subMenu();
+
+        while ( subMenuRunning ) {
+            switch ( menu ) {
+                case 0:
+                    subMenuRunning = false;
+                    break;
+                case 1:
+                    //checkingAccount.list();
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 2:
+                    while ( true ) {
+                        try {
+                            // show single client
+                            System.out.println("Please enter Account ID ");
+                            int accountId = src.nextInt();
+                            src.nextLine();
+
+                            System.out.println("What type of Account?");
+                            System.out.println("1 => show Checking Account");
+                            System.out.println("2 => show Savings Account");
+                            int accountType = src.nextInt();
+                            src.nextLine();
+
+                            while ( accountType != 1 && accountType != 2 ) {
+                                System.out.println("Invalid account Type ?");
+                                System.out.println("1 => show Checking Account");
+                                System.out.println("2 => show Savings Account");
+                                accountType = src.nextInt();
+                                src.nextLine();
+                            }
+
+                            switch (accountType) {
+                                case 1:
+                                    checkingAccount.show( accountId );
+                                    break;
+                                case 2:
+                                    savingsAccount.show( accountId );
+                                    break;
+                            }
+                            break;
+                        }
+                        catch ( InputMismatchException e ) {
+                            System.out.println("please enter valid numbers");
+                            src.nextLine();
+                        }
+                    }
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 3:
+                    // create a client
+                    while ( true ) {
+                        try {
+                            System.out.println("What type of Account?");
+                            System.out.println("1 => to open a Checking Account");
+                            System.out.println("2 => to open a Savings Account");
+                            int accountType = src.nextInt();
+                            src.nextLine();
+                            System.out.println("please enter Client ID ");
+                            int clientId = src.nextInt();
+                            src.nextLine();
+                            switch ( accountType ) {
+                                case 1:
+                                    checkingAccount.create( clientId );
+                                    break;
+                                case 2:
+                                    savingsAccount.create( clientId );
+                                    break;
+                            }
+                            break;
+                        }
+                        catch ( InputMismatchException e ) {
+                            System.out.println("please enter valid numbers");
+                            src.nextLine();
+                        }
+                    }
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 4:
+                    menu = checkingAccount.subMenu();
+                    break;
+            }
+        }
+    }
+
+    static void operationFunc () {
         CheckingAccount checkingAccount = new CheckingAccount();
         SavingsAccount savingsAccount = new SavingsAccount();
         boolean subMenuRunning = true, editing = true;
