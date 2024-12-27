@@ -121,8 +121,13 @@ public class Main {
                     menu = operation.subMenu();
                     break;
                 case 4:
+                    operation.withdraw();
                     menu = operation.subMenu();
                     break;
+                case 7:
+                    menu = operation.subMenu();
+                    break;
+
             }
         }
     }

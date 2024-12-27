@@ -47,7 +47,7 @@ public class CheckingAccount extends Account {
                      // associate account client
                      foundClient.setAccounts( newCheckingAccount );
                      // associate client to account
-                     newCheckingAccount.setOwnedBy(foundClient.getId());
+                     //newCheckingAccount.setOwnedBy(foundClient.getId());
                      break;
                  }
                  catch ( InputMismatchException e ) {

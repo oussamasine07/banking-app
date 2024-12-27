@@ -103,6 +103,72 @@ public class Operation {
         }
     }
 
+    public void withdraw () {
+        try {
+            System.out.println("What type of account");
+            System.out.println("1 => Checking Account");
+            System.out.println("2 => Savings Account");
+            int accountType = scr.nextInt();
+            scr.nextLine();
+
+            int accountId;
+            double amount;
+
+            while ( accountType != 1 && accountType != 2 ) {
+                System.out.println("invalid account");
+                accountType = scr.nextInt();
+                scr.nextLine();
+            }
+
+            System.out.println("Enter account ID: ");
+            accountId = scr.nextInt();
+            scr.nextLine();
+
+            switch ( accountType ) {
+                case 1:
+                    // get account
+                    CheckingAccount checkingAcc = this.findCheckingAccountById( accountId );
+                    if ( checkingAcc != null ) {
+                        System.out.println("Enter the amount you want to withdraw ");
+                        amount = scr.nextDouble();
+                        scr.nextLine();
+
+                        if ( checkingAcc.getBalance() < amount ) {
+                            System.out.println("Unsufficiant funds");
+                        } else {
+                            new Operation( "withdraw", amount, checkingAcc);
+                            checkingAcc.decreaseBalance( amount );
+                        }
+                    } else {
+                        System.out.println("UNFOUND Account.");
+                    }
+                    break;
+                case 2:
+                    SavingsAccount savingsAcc = this.findSavingsAccountById( accountId );
+                    if ( savingsAcc != null ) {
+                        System.out.println("Enter the amount you want to widthdraw ");
+                        amount = scr.nextDouble();
+                        scr.nextLine();
+
+                        if ( savingsAcc.getBalance() < amount ) {
+                            System.out.println("Unsufficiant funds");
+                        } else {
+                            new Operation( "withdraw", amount, savingsAcc);
+                            savingsAcc.encreaseBalance( amount );
+                        }
+
+                    } else {
+                        System.out.println("UNFOUND Account.");
+                    }
+                    break;
+            }
+        }
+        catch ( InputMismatchException e ) {
+            System.out.println("please enter a valide number (0,1,2,3)");
+            scr.nextLine();
+        }
+    }
+
     CheckingAccount findCheckingAccountById ( int accountId ) {
         for ( CheckingAccount account : Main.checkingAccounts ) {
             if ( account.getId() == accountId ) {
@@ -142,7 +208,7 @@ public class Operation {
         catch ( InputMismatchException e ) {
             System.out.println("please enter a valide number (0,1,2,3)");
             scr.nextLine();
-            return 4;
+            return 7;
         }
     }
 

@@ -205,6 +205,7 @@ public class Client {
             System.out.println("Address : " + client.address);
             if ( client.accounts.size() > 0) {
                 for ( Account account : client.accounts ) {
+                    System.out.println("Account ID : " + account.getId());
                     System.out.println("Account Number: " + account.getAccountNumber());
                     System.out.println("Balance : " + account.getBalance());
                 }
