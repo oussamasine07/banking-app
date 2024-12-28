@@ -124,6 +124,10 @@ public class Main {
                     operation.withdraw();
                     menu = operation.subMenu();
                     break;
+                case 5:
+                    operation.transfer();
+                    menu = operation.subMenu();
+                    break;
                 case 7:
                     menu = operation.subMenu();
                     break;

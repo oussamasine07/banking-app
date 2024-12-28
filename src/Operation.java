@@ -9,6 +9,7 @@ public class Operation {
     public double amount;
     public String operationType;
     public Account associatedAccount;
+    public Account recievedBy;
 
     Operation () {}
 
@@ -22,10 +23,22 @@ public class Operation {
         counter++;
     }
 
+    Operation ( String operationType, double amount, Account associatedAccount, Account recievedBy ) {
+        this.id = counter;
+        this.operationType = operationType;
+        this.amount = amount;
+        this.currentDate = LocalDateTime.now();
+        this.associatedAccount = associatedAccount;
+        this.recievedBy = recievedBy;
+        Main.operations.add(this);
+        counter++;
+    }
+
     public Scanner scr = new Scanner(System.in);
     public int option;
     public CheckingAccount checkingAccount = new CheckingAccount();
     public SavingsAccount savingsAccount = new SavingsAccount();
+    public Client client = new Client();
 
     public void list () {
         if ( Main.operations.size() > 0 ) {
@@ -169,6 +182,49 @@ public class Operation {
         }
     }
 
+    public void transfer () {
+        try {
+            // get account of sender
+            System.out.println("Please enter ID of the sender");
+            int senderId = scr.nextInt();
+            scr.nextLine();
+            CheckingAccount foundSenderAccount = checkingAccount.findAccountById( senderId );
+
+            // get account of reciever
+            System.out.println("Please enter ID of the reciever");
+            int recieverId = scr.nextInt();
+            scr.nextLine();
+            CheckingAccount foundRecieverAccount = checkingAccount.findAccountById( recieverId );
+
+            double amount;
+            // check if accounts exist
+            if ( foundSenderAccount != null ) {
+                if ( foundRecieverAccount != null ) {
+                    // check if sender has sufficient funds
+                    System.out.println("Please enter the amount you want to transfer");
+                    amount = scr.nextDouble();
+                    if ( amount > foundSenderAccount.getBalance() ) {
+                        System.out.println("Unsufficiant funds");
+                    } else {
+                        // make the transfer
+                        new Operation("transfer", amount, foundSenderAccount,  foundRecieverAccount);
+                        foundSenderAccount.decreaseBalance( amount );
+                        foundRecieverAccount.encreaseBalance( amount );
+                    }
+
+                } else {
+                    System.out.println("the reciever you have entered does not exist");
+                }
+            } else {
+                System.out.println("the sender you have entered does not exist");
+            }
+
+        }
+        catch ( InputMismatchException e ) {
+            System.out.println("please enter a valide number");
+        }
+    }
+
     CheckingAccount findCheckingAccountById ( int accountId ) {
         for ( CheckingAccount account : Main.checkingAccounts ) {
             if ( account.getId() == accountId ) {
@@ -198,7 +254,7 @@ public class Operation {
             System.out.println("5 => make a transfer operation");
             option = scr.nextInt();
             scr.nextLine();
-            while ( option != 0 && option != 1 && option != 2 && option != 3 && option != 4 ) {
+            while ( option != 0 && option != 1 && option != 2 && option != 3 && option != 4 && option != 5 ) {
                 System.out.println("invalid option please choose one of (0,1,2,3,4)");
                 option = scr.nextInt();
                 scr.nextLine();

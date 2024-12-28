@@ -84,6 +84,15 @@ public class CheckingAccount extends Account {
         return null;
     }
 
+    public CheckingAccount findAccountByOwnerId ( int clientId ) {
+        for ( CheckingAccount account : Main.checkingAccounts ) {
+            if ( account.getOwnedBy() == clientId ) {
+                return account;
+            }
+        }
+        return null;
+    }
+
     int subMenu () {
         try {
             System.out.println("please enter one of the options");
