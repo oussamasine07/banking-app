@@ -1,8 +1,10 @@
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Operation {
     static int counter = 1;
@@ -273,7 +275,13 @@ public class Operation {
 
                         break;
                     case 3:
-
+                        System.out.println("1 => Filter by Time Range");
+                        System.out.println("2 => Filter by Specific Date");
+                        int dateType = scr.nextInt();
+                        scr.nextLine();
+                        if ( dateType == 1 ) {
+                            return filterByDateRange( Main.operations );
+                        }
                         break;
                     default:
                         System.out.println("the option you've entered does not exist.");
@@ -297,6 +305,40 @@ public class Operation {
             }
         }
         return filteredOps;
+    }
+    public ArrayList<Operation> filterByDateRange ( ArrayList<Operation> operations) {
+        System.out.println("Enter dates, you SHOULD Respect this date formate (yyyy-mm-dd or yyyy mm dd)");
+        System.out.println("Enter start date");
+        String startDate = scr.nextLine();
+
+        System.out.println("Enter end date");
+        String endDate = scr.nextLine();
+
+        // split dates
+        String regex = "[\\s\\-]";
+        String[] startDates = startDate.split( regex );
+        int startYear = Integer.parseInt( startDates[0] );
+        int startMonth = Integer.parseInt( startDates[1] );
+        int startDay = Integer.parseInt( startDates[2] );
+
+        String[] endDates = endDate.split( regex );
+        int endYear = Integer.parseInt( endDates[0] );
+        int endMonth = Integer.parseInt( endDates[1] );
+        int endDay = Integer.parseInt( endDates[2] );
+
+        LocalDate searchDateStart = LocalDate.of(startYear, startMonth, startDay);
+        LocalDate searchDateEnd = LocalDate.of( endYear, endMonth, endDay);
+
+        return operations.stream()
+                .filter(op -> {
+                    LocalDate getLocalDate = op.currentDate.toLocalDate();
+                    return (
+                            ( getLocalDate.isEqual(searchDateStart) || getLocalDate.isAfter( searchDateStart) )
+                            &&
+                            ( getLocalDate.isEqual(searchDateEnd) || getLocalDate.isBefore( searchDateEnd ) )
+                    );
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     CheckingAccount findCheckingAccountById ( int accountId ) {
