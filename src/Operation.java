@@ -111,7 +111,7 @@ public class Operation {
                         System.out.println("Enter the amount you want to deposit ");
                         amount = scr.nextDouble();
                         scr.nextLine();
-                        new Operation( "diposit", amount, checkingAcc);
+                        new Operation( "deposit", amount, checkingAcc);
                         checkingAcc.encreaseBalance( amount );
                     } else {
                         System.out.println("UNFOUND Account.");
@@ -123,7 +123,7 @@ public class Operation {
                         System.out.println("Enter the amount you want to deposit ");
                         amount = scr.nextDouble();
                         scr.nextLine();
-                        new Operation( "diposit", amount, savingsAcc);
+                        new Operation( "deposit", amount, savingsAcc);
                         savingsAcc.encreaseBalance( amount );
                     } else {
                         System.out.println("UNFOUND Account.");
@@ -263,10 +263,10 @@ public class Operation {
                     case 1:
                         System.out.println("1 => Filter by DEPOSIT Type");
                         System.out.println("2 => Filter by WITHDRAW Type");
-                        System.out.println("3 => Filter by TRANSACTION Type");
+                        System.out.println("3 => Filter by TRANSFER Type");
                         int type = scr.nextInt();
                         scr.nextLine();
-                        String choiceOfType = type == 1 ? "diposit" : type == 2 ? "withdraw" : "transfer";
+                        String choiceOfType = type == 1 ? "deposit" : type == 2 ? "withdraw" : "transfer";
 
                         return filterByTransactionType( Main.operations, choiceOfType);
                     case 2:
