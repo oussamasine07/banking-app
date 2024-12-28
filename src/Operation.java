@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Operation {
@@ -282,6 +284,9 @@ public class Operation {
                         if ( dateType == 1 ) {
                             return filterByDateRange( Main.operations );
                         }
+                        if ( dateType == 2 ) {
+                            return filterBySpecificDate( Main.operations );
+                        }
                         break;
                     default:
                         System.out.println("the option you've entered does not exist.");
@@ -306,28 +311,29 @@ public class Operation {
         }
         return filteredOps;
     }
+
     public ArrayList<Operation> filterByDateRange ( ArrayList<Operation> operations) {
         System.out.println("Enter dates, you SHOULD Respect this date formate (yyyy-mm-dd or yyyy mm dd)");
+
         System.out.println("Enter start date");
         String startDate = scr.nextLine();
+        while ( !isValidDate( startDate) ) {
+            System.out.println("invalid start date please re-enter like so (yyyy-mm-dd or yyyy mm dd)");
+            startDate = scr.nextLine();
+        }
 
         System.out.println("Enter end date");
         String endDate = scr.nextLine();
+        while ( !isValidDate( endDate ) ) {
+            System.out.println("invalid end date please re-enter like so (yyyy-mm-dd or yyyy mm dd)");
+            endDate = scr.nextLine();
+        }
 
-        // split dates
-        String regex = "[\\s\\-]";
-        String[] startDates = startDate.split( regex );
-        int startYear = Integer.parseInt( startDates[0] );
-        int startMonth = Integer.parseInt( startDates[1] );
-        int startDay = Integer.parseInt( startDates[2] );
+        int[] fullDateStart = getDate(startDate);
+        int[] fullDateEnd = getDate(endDate);
 
-        String[] endDates = endDate.split( regex );
-        int endYear = Integer.parseInt( endDates[0] );
-        int endMonth = Integer.parseInt( endDates[1] );
-        int endDay = Integer.parseInt( endDates[2] );
-
-        LocalDate searchDateStart = LocalDate.of(startYear, startMonth, startDay);
-        LocalDate searchDateEnd = LocalDate.of( endYear, endMonth, endDay);
+        LocalDate searchDateStart = LocalDate.of( fullDateStart[0], fullDateStart[1], fullDateStart[2]);
+        LocalDate searchDateEnd = LocalDate.of( fullDateEnd[0], fullDateEnd[1], fullDateEnd[2]);
 
         return operations.stream()
                 .filter(op -> {
@@ -339,6 +345,41 @@ public class Operation {
                     );
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Operation> filterBySpecificDate ( ArrayList<Operation> operations ) {
+        System.out.println("Enter dates, you SHOULD Respect this date formate (yyyy-mm-dd or yyyy mm dd)");
+        System.out.println("Enter date ");
+        String date = scr.nextLine();
+
+        int[] fullDate = getDate(date);
+        LocalDate searchDate = LocalDate.of( fullDate[0], fullDate[1], fullDate[2]);
+
+        return operations.stream()
+                .filter(op -> {
+                    LocalDate getLocalDate = op.currentDate.toLocalDate();
+                    return ( getLocalDate.isEqual(searchDate) );
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int[] getDate ( String date ) {
+        String regex = "[\\s\\-]";
+        String[] dates = date.split( regex );
+        int dateYear = Integer.parseInt( dates[0] );
+        int dateMonth = Integer.parseInt( dates[1] );
+        int dateDay = Integer.parseInt( dates[2] );
+        int[] fullDate = { dateYear, dateMonth, dateDay};
+
+        return fullDate;
+    }
+
+    public boolean isValidDate ( String text ) {
+        String pattern = "(^(\\d{4}-\\d{2}-\\d{2})$|^(\\d{4} \\d{2} \\d{2})$)";
+        Pattern ptr = Pattern.compile(pattern);
+        Matcher match = ptr.matcher(text);
+
+        return match.find();
     }
 
     CheckingAccount findCheckingAccountById ( int accountId ) {
