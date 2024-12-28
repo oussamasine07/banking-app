@@ -248,6 +248,29 @@ public class Main {
                     menu = checkingAccount.subMenu();
                     break;
                 case 5:
+                    while ( true ) {
+                        try {
+                            System.out.println("What type of Account?");
+                            System.out.println("1 => Checking Account");
+                            System.out.println("2 => Savings Account");
+                            int accountType = src.nextInt();
+                            src.nextLine();
+                            switch ( accountType ) {
+                                case 1:
+                                    checkingAccount.filterByMinimumBlanace( Main.accounts );
+                                    break;
+                                case 2:
+                                    savingsAccount.filterByMinimumBlanace( Main.accounts );
+                                    break;
+                            }
+                            break;
+                        }
+                        catch ( InputMismatchException e ) {
+                            System.out.println("please enter valid numbers");
+                        }
+                    }
+                    break;
+                case 6:
                     menu = checkingAccount.subMenu();
                     break;
             }

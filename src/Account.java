@@ -67,10 +67,35 @@ public abstract class  Account {
         return foundAccountNumber;
     }
 
+    public void dislplayAccount ( Account account, Client client, boolean isShowHistory ) {
+        Client foundClient = client.findById( account.getOwnedBy() );
+        System.out.println("Account Number : " + account.getAccountNumber());
+        System.out.println("Account Holder : " + client.getFirstName() + " " + foundClient.getLastName());
+        System.out.println("Account Type : " + CheckingAccount.accountType);
+        System.out.println("Balance : " + account.getBalance());
+        if ( account instanceof CheckingAccount ) {
+            CheckingAccount checkingAccount = (CheckingAccount) account;
+            System.out.println("Bank Charges: " + checkingAccount.getBankCharges());
+        }
+        if ( account instanceof SavingsAccount ) {
+            SavingsAccount checkingAccount = (SavingsAccount) account;
+            System.out.println("Bank Charges: " + checkingAccount.getInterestRate());
+        }
+
+        if ( isShowHistory ) {
+            System.out.println("we are showing history");
+            for ( Operation operation : account.getOperationsHistory() ) {
+                operation.displayOperation( operation );
+            }
+        }
+    }
+
     public abstract void create( int clientId );
 
     public abstract void show ( int clientId );
 
     public abstract void listAccountOperationsHistory ( int accountId );
+
+    public abstract  void filterByMinimumBlanace ( ArrayList<Account> accounts );
 
 }

@@ -1,5 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class SavingsAccount extends Account {
 
@@ -41,6 +40,7 @@ public class SavingsAccount extends Account {
                     scr.nextLine();
 
                     SavingsAccount newSavingsAccount = new SavingsAccount( foundClient.getId(), dipositAmount, interestRate );
+                    Main.accounts.add( newSavingsAccount );
                     // associate account client
                     foundClient.setAccounts( newSavingsAccount );
                     // associate client to account
@@ -84,4 +84,15 @@ public class SavingsAccount extends Account {
         }
         return null;
     }
+
+    public void filterByMinimumBlanace (ArrayList<Account> accounts ) {
+        Account account = accounts.stream()
+                .min(Comparator.comparing(Account::getBalance))
+                .orElseThrow(NoSuchElementException::new);
+
+        Client owner = client.findById( account.getOwnedBy() );
+
+        this.dislplayAccount( account, owner, false );
+    }
+
 }

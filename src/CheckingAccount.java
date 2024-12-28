@@ -1,5 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class CheckingAccount extends Account {
 
@@ -44,10 +43,11 @@ public class CheckingAccount extends Account {
                      scr.nextLine();
 
                      CheckingAccount newCheckingAccount = new CheckingAccount( foundClient.getId(), dipositAmount, bankCharges );
+                     Main.accounts.add( newCheckingAccount );
                      // associate account client
                      foundClient.setAccounts( newCheckingAccount );
                      // associate client to account
-                     //newCheckingAccount.setOwnedBy(foundClient.getId());
+                     newCheckingAccount.setOwnedBy(foundClient.getId());
                      break;
                  }
                  catch ( InputMismatchException e ) {
@@ -82,21 +82,6 @@ public class CheckingAccount extends Account {
         }
     };
 
-    public void dislplayAccount ( CheckingAccount account, Client client, boolean isShowHistory ) {
-        Client foundClient = client.findById( account.getOwnedBy() );
-        System.out.println("Account Number : " + account.getAccountNumber());
-        System.out.println("Account Holder : " + client.getFirstName() + " " + foundClient.getLastName());
-        System.out.println("Account Type : " + CheckingAccount.accountType);
-        System.out.println("Balance : " + account.getBalance());
-        System.out.println("Bank Charges : " + account.getBankCharges());
-        if ( isShowHistory ) {
-            System.out.println("we are showing history");
-            for ( Operation operation : account.getOperationsHistory() ) {
-                operation.displayOperation( operation );
-            }
-        }
-    }
-
     public CheckingAccount findAccountById ( int accountId ) {
         for ( CheckingAccount account : Main.checkingAccounts ) {
             if ( account.getId() == accountId ) {
@@ -115,6 +100,17 @@ public class CheckingAccount extends Account {
         return null;
     }
 
+    public void filterByMinimumBlanace ( ArrayList<Account> accounts ) {
+        Account account = accounts.stream()
+                            .min(Comparator.comparing(Account::getBalance))
+                            .orElseThrow(NoSuchElementException::new);
+
+        Client owner = client.findById( account.getOwnedBy() );
+
+        this.dislplayAccount( account, owner, false );
+
+    }
+
     int subMenu () {
         try {
             System.out.println("please enter one of the options");
@@ -123,10 +119,11 @@ public class CheckingAccount extends Account {
             System.out.println("2 => list a single Account");
             System.out.println("3 => create a Account");
             System.out.println("4 => show an Account History");
+            System.out.println("5 => show Minimum balance");
             option = scr.nextInt();
             scr.nextLine();
-            while ( option != 0 && option != 1 && option != 2 && option != 3 && option != 4 ) {
-                System.out.println("invalid option please choose one of (0,1,2,3,4)");
+            while ( option != 0 && option != 1 && option != 2 && option != 3 && option != 4 && option != 5 ) {
+                System.out.println("invalid option please choose one of (0,1,2,3,4,5)");
                 option = scr.nextInt();
                 scr.nextLine();
             }
