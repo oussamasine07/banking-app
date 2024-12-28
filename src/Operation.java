@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -42,14 +44,33 @@ public class Operation {
 
     public void list () {
         if ( Main.operations.size() > 0 ) {
-            for ( Operation  operation : Main.operations ) {
-                System.out.println( "Operation : " + operation.operationType );
-                System.out.println( "Made by : " + getOwnerFullName( operation.associatedAccount.getOwnedBy() ) );
-                System.out.println( "Ampount : " + operation.amount);
+            System.out.println("Do you want to Apply Filters");
+            System.out.println("0 => to cancel Filter");
+            System.out.println("1 => to confirm filter");
+            int confirmFilter = scr.nextInt();
+            scr.nextLine();
+            if ( confirmFilter == 1 ) {
+
+                ArrayList<Operation> operations = this.applyFilter();
+                for ( Operation  operation : operations ) {
+                    this.displayOperation( operation );
+                }
+
+            } else {
+                for ( Operation  operation : Main.operations ) {
+                    this.displayOperation( operation );
+                }
             }
         } else {
             System.out.println("NO Operations yet");
         }
+    }
+
+    public void displayOperation ( Operation operation ) {
+        System.out.println( "Operation : " + operation.operationType );
+        System.out.println( "Made by : " + getOwnerFullName( operation.associatedAccount.getOwnedBy() ) );
+        System.out.println( "Ampount : " + operation.amount);
+        System.out.println("Date Of Operation : " + operation.currentDate);
     }
 
     public String getOwnerFullName ( int clientId ) {
@@ -223,6 +244,59 @@ public class Operation {
         catch ( InputMismatchException e ) {
             System.out.println("please enter a valide number");
         }
+    }
+
+    public ArrayList<Operation> applyFilter () {
+        ArrayList<Operation> filteredOps = new ArrayList<Operation>();
+        int option;
+        while ( true ) {
+            try {
+
+                System.out.println("Apply filter : ");
+                System.out.println("    1 => by Transaction Type");
+                System.out.println("    2 => by Minimum Deposit");
+                System.out.println("    3 => by Date");
+                option = scr.nextInt();
+                scr.nextLine();
+
+                switch ( option ) {
+                    case 1:
+                        System.out.println("1 => Filter by DEPOSIT Type");
+                        System.out.println("2 => Filter by WITHDRAW Type");
+                        System.out.println("3 => Filter by TRANSACTION Type");
+                        int type = scr.nextInt();
+                        scr.nextLine();
+                        String choiceOfType = type == 1 ? "diposit" : type == 2 ? "withdraw" : "transfer";
+
+                        return filterByTransactionType( Main.operations, choiceOfType);
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    default:
+                        System.out.println("the option you've entered does not exist.");
+                }
+
+                break;
+            }
+            catch ( InputMismatchException e ) {
+                System.out.println("Invalid number option, only integers accepted");
+            }
+        }
+        return filteredOps;
+    }
+
+    // filters
+    public ArrayList<Operation> filterByTransactionType ( ArrayList<Operation> operations, String type ) {
+        ArrayList<Operation> filteredOps = new ArrayList<Operation>();
+        for ( Operation operation : operations ) {
+            if ( operation.operationType.equals( type ) ) {
+                filteredOps.add( operation );
+            }
+        }
+        return filteredOps;
     }
 
     CheckingAccount findCheckingAccountById ( int accountId ) {
