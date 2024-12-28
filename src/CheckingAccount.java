@@ -65,14 +65,36 @@ public class CheckingAccount extends Account {
 
          if ( foundAccount != null ) {
              Client foundClient = client.findById( foundAccount.getOwnedBy() );
-             System.out.println("Account Number : " + foundAccount.getAccountNumber());
-             System.out.println("Account Holder : " + foundClient.getFirstName() + " " + foundClient.getLastName());
-             System.out.println("Account Type : " + CheckingAccount.accountType);
-             System.out.println("Balance : " + foundAccount.getBalance());
-             System.out.println("Bank Charges : " + foundAccount.getBankCharges());
+             dislplayAccount( foundAccount, foundClient, false );
          } else {
              System.out.println("UNFOUND Account");
          }
+    }
+
+    public void listAccountOperationsHistory ( int accountId ) {
+        CheckingAccount foundAccount = this.findAccountById( accountId );
+
+        if ( foundAccount != null ) {
+            Client foundClient = client.findById( foundAccount.getOwnedBy() );
+            dislplayAccount( foundAccount, foundClient, true );
+        } else {
+            System.out.println("UNFOUND Account");
+        }
+    };
+
+    public void dislplayAccount ( CheckingAccount account, Client client, boolean isShowHistory ) {
+        Client foundClient = client.findById( account.getOwnedBy() );
+        System.out.println("Account Number : " + account.getAccountNumber());
+        System.out.println("Account Holder : " + client.getFirstName() + " " + foundClient.getLastName());
+        System.out.println("Account Type : " + CheckingAccount.accountType);
+        System.out.println("Balance : " + account.getBalance());
+        System.out.println("Bank Charges : " + account.getBankCharges());
+        if ( isShowHistory ) {
+            System.out.println("we are showing history");
+            for ( Operation operation : account.getOperationsHistory() ) {
+                operation.displayOperation( operation );
+            }
+        }
     }
 
     public CheckingAccount findAccountById ( int accountId ) {
@@ -100,6 +122,7 @@ public class CheckingAccount extends Account {
             System.out.println("1 => list all Accounts");
             System.out.println("2 => list a single Account");
             System.out.println("3 => create a Account");
+            System.out.println("4 => show an Account History");
             option = scr.nextInt();
             scr.nextLine();
             while ( option != 0 && option != 1 && option != 2 && option != 3 && option != 4 ) {
@@ -112,7 +135,7 @@ public class CheckingAccount extends Account {
         catch ( InputMismatchException e ) {
             System.out.println("please enter a valide number (0,1,2,3)");
             scr.nextLine();
-            return 4;
+            return 5;
         }
     }
 

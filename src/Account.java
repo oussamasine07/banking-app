@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class  Account {
@@ -6,6 +7,7 @@ public abstract class  Account {
     private long accountNumber; // this number should be generated automatically and it should be unique
     private double balance;
     private int ownedBy;
+    private ArrayList<Operation> operationsHistory = new ArrayList<Operation>();
 
     Account ( double balance, int ownedBy ) {
         this.id = count;
@@ -16,7 +18,8 @@ public abstract class  Account {
     }
 
     Account () {}
-    // TODO Add overloaded constructor if needed
+
+
 
     public int getId () {
         return this.id;
@@ -30,6 +33,9 @@ public abstract class  Account {
     public int getOwnedBy () {
         return this.ownedBy;
     }
+    public ArrayList<Operation> getOperationsHistory () {
+        return this.operationsHistory;
+    }
 
     public void setOwnedBy ( int  account ) {
         this.ownedBy = account;
@@ -41,6 +47,10 @@ public abstract class  Account {
 
     public void decreaseBalance ( double amount ) {
         this.balance -= amount;
+    }
+
+    public void addOperationToHistory ( Operation operation ) {
+        this.operationsHistory.add( operation );
     }
 
 
@@ -60,5 +70,7 @@ public abstract class  Account {
     public abstract void create( int clientId );
 
     public abstract void show ( int clientId );
+
+    public abstract void listAccountOperationsHistory ( int accountId );
 
 }

@@ -115,8 +115,9 @@ public class Operation {
                         System.out.println("Enter the amount you want to deposit ");
                         amount = scr.nextDouble();
                         scr.nextLine();
-                        new Operation( "deposit", amount, checkingAcc);
+                        Operation newOperation = new Operation( "deposit", amount, checkingAcc);
                         checkingAcc.encreaseBalance( amount );
+                        checkingAcc.addOperationToHistory( newOperation );
                     } else {
                         System.out.println("UNFOUND Account.");
                     }
@@ -127,8 +128,9 @@ public class Operation {
                         System.out.println("Enter the amount you want to deposit ");
                         amount = scr.nextDouble();
                         scr.nextLine();
-                        new Operation( "deposit", amount, savingsAcc);
+                        Operation newOperation = new Operation( "deposit", amount, savingsAcc);
                         savingsAcc.encreaseBalance( amount );
+                        savingsAcc.addOperationToHistory( newOperation );
                     } else {
                         System.out.println("UNFOUND Account.");
                     }
@@ -174,8 +176,9 @@ public class Operation {
                         if ( checkingAcc.getBalance() < amount ) {
                             System.out.println("Unsufficiant funds");
                         } else {
-                            new Operation( "withdraw", amount, checkingAcc);
+                            Operation newOperation = new Operation( "withdraw", amount, checkingAcc);
                             checkingAcc.decreaseBalance( amount );
+                            checkingAcc.addOperationToHistory( newOperation );
                         }
                     } else {
                         System.out.println("UNFOUND Account.");
@@ -191,8 +194,9 @@ public class Operation {
                         if ( savingsAcc.getBalance() < amount ) {
                             System.out.println("Unsufficiant funds");
                         } else {
-                            new Operation( "withdraw", amount, savingsAcc);
+                            Operation newOperation = new Operation( "withdraw", amount, savingsAcc);
                             savingsAcc.encreaseBalance( amount );
+                            savingsAcc.addOperationToHistory( newOperation );
                         }
 
                     } else {
@@ -232,9 +236,11 @@ public class Operation {
                         System.out.println("Unsufficiant funds");
                     } else {
                         // make the transfer
-                        new Operation("transfer", amount, foundSenderAccount,  foundRecieverAccount);
+                        Operation newOperation = new Operation("transfer", amount, foundSenderAccount,  foundRecieverAccount);
                         foundSenderAccount.decreaseBalance( amount );
                         foundRecieverAccount.encreaseBalance( amount );
+                        foundSenderAccount.addOperationToHistory( newOperation );
+                        foundRecieverAccount.addOperationToHistory( newOperation );
                     }
 
                 } else {

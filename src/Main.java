@@ -221,6 +221,33 @@ public class Main {
                     menu = checkingAccount.subMenu();
                     break;
                 case 4:
+                    while ( true ) {
+                        try {
+                            System.out.println("What type of Account?");
+                            System.out.println("1 => Checking Account");
+                            System.out.println("2 => Savings Account");
+                            int accountType = src.nextInt();
+                            src.nextLine();
+                            System.out.println("please enter Account ID ");
+                            int clientId = src.nextInt();
+                            src.nextLine();
+                            switch ( accountType ) {
+                                case 1:
+                                    checkingAccount.listAccountOperationsHistory( clientId );
+                                    break;
+                                case 2:
+                                    //savingsAccount.create( clientId );
+                                    break;
+                            }
+                            break;
+                        }
+                        catch ( InputMismatchException e ) {
+                            System.out.println("please enter valid numbers");
+                        }
+                    }
+                    menu = checkingAccount.subMenu();
+                    break;
+                case 5:
                     menu = checkingAccount.subMenu();
                     break;
             }

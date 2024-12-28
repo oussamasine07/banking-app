@@ -72,6 +72,10 @@ public class SavingsAccount extends Account {
         }
     }
 
+    public void listAccountOperationsHistory ( int accountId ) {
+
+    };
+
     public SavingsAccount findAccountById ( int accountId ) {
         for ( SavingsAccount account : Main.savingsAccounts ) {
             if ( account.getId() == accountId ) {
