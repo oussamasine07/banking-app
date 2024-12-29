@@ -18,6 +18,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        System.out.println("************************************************************");
+        System.out.println("******************* BANKING APP MANAGMENT ******************");
+        System.out.println("************************************************************");
+
         while ( appRunning ) {
             switch ( mainManu ) {
                 case 'h':
@@ -46,7 +50,7 @@ public class Main {
     }
 
     static char showManu () {
-        System.out.println("Please choose one of the rooms )");
+        System.out.println("Please choose one of the rooms ");
         System.out.println("c => enter Client room");
         System.out.println("a => enter account room");
         System.out.println("o => enter operation room");
