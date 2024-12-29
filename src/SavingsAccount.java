@@ -25,6 +25,9 @@ public class SavingsAccount extends Account {
     public static Scanner scr = new Scanner(System.in);
 
     public void create ( int clientId ) {
+        System.out.println("********************************************");
+        System.out.println("************ New Saving Account ************");
+        System.out.println("********************************************");
         Client client = new Client();
         Client foundClient = client.findById( clientId );
 
@@ -55,9 +58,13 @@ public class SavingsAccount extends Account {
         } else {
             System.out.println("UNFOUND Client");
         }
+        System.out.println("********************************************");
     }
 
     public void show ( int accountId ) {
+        System.out.println("********************************************");
+        System.out.println("************** Saving Account **************");
+        System.out.println("********************************************");
         SavingsAccount foundAccount = this.findAccountById( accountId );
 
         if ( foundAccount != null ) {
@@ -70,10 +77,22 @@ public class SavingsAccount extends Account {
         } else {
             System.out.println("UNFOUND Account");
         }
+        System.out.println("********************************************");
     }
 
     public void listAccountOperationsHistory ( int accountId ) {
+        System.out.println("********************************************");
+        System.out.println("************* Account History **************");
+        System.out.println("********************************************");
+        SavingsAccount foundAccount = this.findAccountById( accountId );
 
+        if ( foundAccount != null ) {
+            Client foundClient = client.findById( foundAccount.getOwnedBy() );
+            dislplayAccount( foundAccount, foundClient, true );
+        } else {
+            System.out.println("UNFOUND Account");
+        }
+        System.out.println("********************************************");
     };
 
     public SavingsAccount findAccountById ( int accountId ) {
@@ -86,6 +105,9 @@ public class SavingsAccount extends Account {
     }
 
     public void filterByMinimumBlanace (ArrayList<Account> accounts ) {
+        System.out.println("********************************************");
+        System.out.println("************* Minimum Balance **************");
+        System.out.println("********************************************");
         Account account = accounts.stream()
                 .min(Comparator.comparing(Account::getBalance))
                 .orElseThrow(NoSuchElementException::new);
@@ -93,6 +115,7 @@ public class SavingsAccount extends Account {
         Client owner = client.findById( account.getOwnedBy() );
 
         this.dislplayAccount( account, owner, false );
+        System.out.println("********************************************");
     }
 
 }
