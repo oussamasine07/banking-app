@@ -105,6 +105,9 @@ public class Client {
     }
 
     public void create () {
+        System.out.println("********************************************");
+        System.out.println("**************** New Client ****************");
+        System.out.println("********************************************");
         // using regex
             // validate client name it name should be all letters
         System.out.println("please enter first name");
@@ -201,10 +204,13 @@ public class Client {
         } else {
             System.out.println("creating new client is canceled");
         }
+        System.out.println("********************************************");
     }
 
     public void list () {
-        System.out.println("******************* ALL CLIENTS ******************");
+        System.out.println("**************************************************");
+        System.out.println("******************* All Clients ******************");
+        System.out.println("**************************************************");
         if ( Main.clients.size() == 0) {
             System.out.println("No Clients YET");
         } else {
@@ -213,29 +219,39 @@ public class Client {
                 System.out.println("Email : " + client.email);
                 System.out.println("Phone : " + client.phone);
                 System.out.println("Address : " + client.address);
+                System.out.println("_________________________________________________");
             }
         }
+        System.out.println("**************************************************");
     }
 
     public void show () {
+        System.out.println("*****************************************************");
+        System.out.println("******************* Client Details ******************");
+        System.out.println("*****************************************************");
 
         System.out.println("Please enter Client id");
         int clientId = scr.nextInt();
-
         Client client = findById( clientId );
 
-        System.out.println("******************* ALL DETAILS ******************");
+        System.out.println("******************* All Details ******************");
 
         if ( client != null ) {
             System.out.println("Full Name: " + client.firstName + " " + client.lastName);
             System.out.println("Email : " + client.email);
             System.out.println("Phone : " + client.phone);
             System.out.println("Address : " + client.address);
+
             if ( client.accounts.size() > 0) {
+                System.out.println("_________________________________________________");
+                System.out.println("Accounts : ");
                 for ( Account account : client.accounts ) {
-                    System.out.println("Account ID : " + account.getId());
-                    System.out.println("Account Number: " + account.getAccountNumber());
-                    System.out.println("Balance : " + account.getBalance());
+                    String accountType = account instanceof CheckingAccount ? CheckingAccount.accountType : SavingsAccount.accountType;
+                    System.out.println("    Account Type : " + accountType );
+                    System.out.println("    Account ID : " + account.getId());
+                    System.out.println("    Account Number: " + account.getAccountNumber());
+                    System.out.println("    Balance : " + account.getBalance());
+                    System.out.println();
                 }
             } else {
                 System.out.println("NO Accounts Yet");

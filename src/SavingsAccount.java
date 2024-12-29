@@ -3,7 +3,7 @@ import java.util.*;
 public class SavingsAccount extends Account {
 
     private double interestRate;
-    private static String accountType = "Savings Account";
+    public static String accountType = "Savings Account";
 
     Client client = new Client();
 
