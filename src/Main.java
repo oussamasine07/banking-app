@@ -236,7 +236,7 @@ public class Main {
                                     checkingAccount.listAccountOperationsHistory( clientId );
                                     break;
                                 case 2:
-                                    //savingsAccount.create( clientId );
+                                    savingsAccount.create( clientId );
                                     break;
                             }
                             break;

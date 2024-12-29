@@ -33,6 +33,8 @@ public class Client {
     }
 
     static int option;
+    static CheckingAccount checkingAccount = new CheckingAccount();
+    static SavingsAccount savingsAccount = new SavingsAccount();
 
     public int getId () { return this.id; }
     public String getFirstName () {
@@ -159,13 +161,39 @@ public class Client {
 
         if ( confirm.charAt(0) == 'y') {
             // create new client
-            new Client( firstName, lastName, email, address, phone );
+            Client newClient = new Client( firstName, lastName, email, address, phone );
             // give the user the option to create a new account
             System.out.println("Do you want to create an account for this client ? enter (y or n)");
             confirm = scr.nextLine();
             if ( confirm.charAt(0) == 'y' ) {
                 // create new account here
-                System.out.println(" account created ");
+                try {
+                    System.out.println("What type of Account you want to create");
+                    System.out.println("1 => Checking Account");
+                    System.out.println("2 => Savings Account");
+                    System.out.println("3 => for both Checking and Savings Account");
+                    int accountType = scr.nextInt();
+                    scr.nextLine();
+                    switch ( accountType ){
+                        case 1:
+                            checkingAccount.create( newClient.getId() );
+                            System.out.println("new client and checking account created");
+                            break;
+                        case 2:
+                            savingsAccount.create(newClient.getId());
+                            System.out.println("new client and saving account created");
+                            break;
+                        case 3:
+                            checkingAccount.create( newClient.getId() );
+                            savingsAccount.create(newClient.getId());
+                            System.out.println("new client created");
+                            System.out.println("savings and checking account created");
+                            break;
+                    }
+                }
+                catch ( InputMismatchException e ) {
+                    System.out.println("invalide input type");
+                }
                 // ask wich type of account
             } else {
                 System.out.println("new Client created");
