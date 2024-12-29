@@ -47,6 +47,9 @@ public class Operation {
     public Client client = new Client();
 
     public void list () {
+        System.out.println("**************************************************");
+        System.out.println("******************* All Clients ******************");
+        System.out.println("**************************************************");
         if ( Main.operations.size() > 0 ) {
             System.out.println("Do you want to Apply Filters");
             System.out.println("0 => to cancel Filter");
@@ -68,6 +71,7 @@ public class Operation {
         } else {
             System.out.println("NO Operations yet");
         }
+        System.out.println("**************************************************");
     }
 
     public void displayOperation ( Operation operation ) {
@@ -87,6 +91,9 @@ public class Operation {
     }
 
     public void deposit () {
+        System.out.println("********************************************************");
+        System.out.println("******************* Deposit Operation ******************");
+        System.out.println("********************************************************");
         try {
             System.out.println("What type of account");
             System.out.println("1 => Checking Account");
@@ -141,9 +148,13 @@ public class Operation {
             System.out.println("please enter a valide number (0,1,2,3)");
             scr.nextLine();
         }
+        System.out.println("**************************************************");
     }
 
     public void withdraw () {
+        System.out.println("********************************************************");
+        System.out.println("******************* Deposit Operation ******************");
+        System.out.println("********************************************************");
         try {
             System.out.println("What type of account");
             System.out.println("1 => Checking Account");
@@ -209,9 +220,13 @@ public class Operation {
             System.out.println("please enter a valide number (0,1,2,3)");
             scr.nextLine();
         }
+        System.out.println("********************************************************");
     }
 
     public void transfer () {
+        System.out.println("********************************************************");
+        System.out.println("******************* Deposit Operation ******************");
+        System.out.println("********************************************************");
         try {
             // get account of sender
             System.out.println("Please enter ID of the sender");
@@ -254,6 +269,7 @@ public class Operation {
         catch ( InputMismatchException e ) {
             System.out.println("please enter a valide number");
         }
+        System.out.println("********************************************************");
     }
 
     public ArrayList<Operation> applyFilter () {
@@ -408,6 +424,7 @@ public class Operation {
 
     int subMenu () {
         try {
+            System.out.println("******************* Operations Menu ******************");
             System.out.println("please enter one of the options");
             System.out.println("0 => quite Operation section");
             System.out.println("1 => list all Operations");

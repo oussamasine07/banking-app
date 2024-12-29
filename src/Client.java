@@ -278,6 +278,7 @@ public class Client {
 
     int subMenu () {
         try {
+            System.out.println("******************* Client Menu ******************");
             System.out.println("please enter one of the options");
             System.out.println("0 => quite Client section");
             System.out.println("1 => list all Clients");
