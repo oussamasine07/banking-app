@@ -28,8 +28,11 @@ public class CheckingAccount extends Account {
     }
 
     public void create ( int clientId ) {
-         Client client = new Client();
-         Client foundClient = client.findById( clientId );
+        System.out.println("********************************************");
+        System.out.println("*********** New Checking Account ***********");
+        System.out.println("********************************************");
+        Client client = new Client();
+        Client foundClient = client.findById( clientId );
 
          if ( foundClient != null ) {
              while ( true ) {
@@ -61,6 +64,9 @@ public class CheckingAccount extends Account {
     }
 
     public void show ( int accountId ) {
+        System.out.println("********************************************");
+        System.out.println("************* Checking Account *************");
+        System.out.println("********************************************");
         CheckingAccount foundAccount = this.findAccountById( accountId );
 
          if ( foundAccount != null ) {
@@ -69,9 +75,13 @@ public class CheckingAccount extends Account {
          } else {
              System.out.println("UNFOUND Account");
          }
+        System.out.println("********************************************");
     }
 
     public void listAccountOperationsHistory ( int accountId ) {
+        System.out.println("********************************************");
+        System.out.println("************* Account History **************");
+        System.out.println("********************************************");
         CheckingAccount foundAccount = this.findAccountById( accountId );
 
         if ( foundAccount != null ) {
@@ -80,6 +90,7 @@ public class CheckingAccount extends Account {
         } else {
             System.out.println("UNFOUND Account");
         }
+        System.out.println("********************************************");
     };
 
     public CheckingAccount findAccountById ( int accountId ) {
@@ -101,6 +112,9 @@ public class CheckingAccount extends Account {
     }
 
     public void filterByMinimumBlanace ( ArrayList<Account> accounts ) {
+        System.out.println("********************************************");
+        System.out.println("************* Minimum Balance **************");
+        System.out.println("********************************************");
         Account account = accounts.stream()
                             .min(Comparator.comparing(Account::getBalance))
                             .orElseThrow(NoSuchElementException::new);
@@ -108,11 +122,14 @@ public class CheckingAccount extends Account {
         Client owner = client.findById( account.getOwnedBy() );
 
         this.dislplayAccount( account, owner, false );
-
+        System.out.println("********************************************");
     }
 
     int subMenu () {
         try {
+            System.out.println("**************************************************");
+            System.out.println("************* Checking Account Manu **************");
+            System.out.println("**************************************************");
             System.out.println("please enter one of the options");
             System.out.println("0 => quite Account section");
             System.out.println("1 => list all Accounts");
